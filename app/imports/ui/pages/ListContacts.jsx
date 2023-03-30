@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useTracker } from 'meteor/react-meteor-data';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Contact from '../components/Contact';
-import { Contacts } from '../../api/contact/Contacts';
+import { Contacts } from '../../api/contacts/Contacts';
 
 /* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListContacts = () => {
@@ -16,25 +16,28 @@ const ListContacts = () => {
     const subscription = Meteor.subscribe(Contacts.userPublicationName);
     // Determine if the subscription is ready
     const rdy = subscription.ready();
-    // Get the Contact documents
+    // Get the Stuff documents
     const contactItems = Contacts.collection.find({}).fetch();
     return {
       contacts: contactItems,
       ready: rdy,
     };
   }, []);
-
   return (ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
-        <Col>
+        <Col md={7}>
           <Col className="text-center">
             <h2>List Contacts</h2>
           </Col>
-          <Row xs={1} md={2} lg={3} className="g-4">
-            {contacts.map((contact) => (<Col key={contact._id}><Contact contact={contact} /> </Col>))}
-          </Row>
         </Col>
+      </Row>
+      <Row xs={1} md={2}>
+        {contacts.map(contact => (
+          <Col>
+            <Contact contact={contact} />
+          </Col>
+        ))}
       </Row>
     </Container>
   ) : <LoadingSpinner />);
