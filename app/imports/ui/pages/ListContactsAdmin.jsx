@@ -7,13 +7,13 @@ import Contact from '../components/Contact';
 import { Contacts } from '../../api/contact/Contacts';
 
 /* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
-const ListContacts = () => {
+const ListContactsAdmin = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { ready, contacts } = useTracker(() => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
     // Get access to Stuff documents.
-    const subscription = Meteor.subscribe(Contacts.userPublicationName);
+    const subscription = Meteor.subscribe(Contacts.adminPublicationName);
     // Determine if the subscription is ready
     const rdy = subscription.ready();
     // Get the Contact documents
@@ -40,4 +40,4 @@ const ListContacts = () => {
   ) : <LoadingSpinner />);
 };
 
-export default ListContacts;
+export default ListContactsAdmin;
