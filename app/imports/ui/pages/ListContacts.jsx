@@ -7,19 +7,16 @@ import Contact from '../components/Contact';
 import { Contacts } from '../../api/contacts/Contact';
 import { Notes } from '../../api/notes/Notes';
 
-/* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListContacts = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
   const { ready, contacts, notes } = useTracker(() => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
-    // Get access to Stuff documents.
     const subscription1 = Meteor.subscribe(Contacts.userPublicationName);
     const subscription2 = Meteor.subscribe(Notes.userPublicationName);
     // Determine if the subscription is ready
     const rdy1 = subscription1.ready();
     const rdy2 = subscription2.ready();
-    // Get the Stuff documents
     const contactItems = Contacts.collection.find({}).fetch();
     const noteItems = Notes.collection.find({}).fetch();
     return {

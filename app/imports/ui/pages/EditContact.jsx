@@ -18,7 +18,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 const bridge = new SimpleSchema2Bridge(Contacts.schema);
 
-/* Renders the EditStuff page for editing a single document. */
 const EditContacts = () => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
   const { _id } = useParams();
@@ -49,7 +48,7 @@ const EditContacts = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={10}>
-          <Col className="text-center"><h2>Edit Stuff</h2></Col>
+          <Col className="text-center"><h2>Edit Contact</h2></Col>
           <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Card>
               <Card.Body>
