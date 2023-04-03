@@ -9,7 +9,6 @@ import { Notes } from '../../api/notes/Notes';
 const schema = Notes.schema;
 const bridge = new SimpleSchema2Bridge(schema);
 
-/* Renders the AddContact page for adding a document. */
 const AddNote = ({ owner, contactId }) => {
 
   // On submit, insert the data.
@@ -34,7 +33,7 @@ const AddNote = ({ owner, contactId }) => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={10}>
-          <Col className="text-center"><h2>Add a Note</h2></Col>
+          <Col className="text-center"><h2>Add Contacts</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>

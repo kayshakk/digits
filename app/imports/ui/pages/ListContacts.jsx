@@ -10,12 +10,11 @@ import { Notes } from '../../api/notes/Notes';
 /* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListContacts = () => {
   // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
-  const { ready, contacts, notes} = useTracker(() => {
+  const { ready, contacts, notes } = useTracker(() => {
     // Note that this subscription will get cleaned up
     // when your component is unmounted or deps change.
-    // Get access to Contact documents.
+    // Get access to Stuff documents.
     const subscription1 = Meteor.subscribe(Contacts.userPublicationName);
-    // Get access to notes
     const subscription2 = Meteor.subscribe(Notes.userPublicationName);
     // Determine if the subscription is ready
     const rdy1 = subscription1.ready();
@@ -26,7 +25,7 @@ const ListContacts = () => {
     return {
       contacts: contactItems,
       notes: noteItems,
-      ready: (rdy1 && rdy2),
+      ready: rdy1 && rdy2,
     };
   }, []);
   return (ready ? (
@@ -41,7 +40,11 @@ const ListContacts = () => {
       <Row xs={1} md={2}>
         {contacts.map(contact => (
           <Col>
-            <Contact contact={contact} notes={notes.filter(note => (note.contactId === contact._id))} />
+            <Contact
+              key={contact._id}
+              contact={contact}
+              notes={notes.filter(note => (note.contactId === contact._id))}
+            />
           </Col>
         ))}
       </Row>

@@ -13,9 +13,8 @@ const Contact = ({ contact, notes }) => (
       <Card.Title>{contact.firstName} {contact.lastName}</Card.Title>
       <Card.Subtitle>{contact.address}</Card.Subtitle>
       <Card.Text>{contact.description}</Card.Text>
-      <Card.Text>Notes: </Card.Text>
       <ListGroup variant="flush">
-        {notes.map((note, index) => <Note key={index} note={note} />)}
+        {notes.map((note) => <Note key={note._id} note={note} />)}
       </ListGroup>
       <AddNote owner={contact.owner} contactId={contact._id} />
       <Link to={`/edit/${contact._id}`}>Edit</Link>
@@ -30,11 +29,11 @@ Contact.propTypes = {
     lastName: PropTypes.string,
     address: PropTypes.string,
     image: PropTypes.string,
-    owner: PropTypes.string,
     description: PropTypes.string,
+    owner: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
-  notes: PropTypes.arrayOf(function (propValue, key, componentName, location, propFullName) {
+  notes: PropTypes.arrayOf((propValue, key, componentName, location, propFullName) => {
     if (!Note.test(propValue[key])) {
       return new Error(
         `Invalid prop \`${propFullName}\` supplied to` +

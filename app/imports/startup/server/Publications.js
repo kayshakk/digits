@@ -17,11 +17,10 @@ Meteor.publish(Stuffs.userPublicationName, function () {
 Meteor.publish(Notes.userPublicationName, function () {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
-    return Notes.collection.find({owner:username});
+    return Notes.collection.find({ owner: username });
   }
   return this.ready();
 });
-
 Meteor.publish(Contacts.userPublicationName, function () {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
