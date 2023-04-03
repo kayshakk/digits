@@ -96,7 +96,7 @@ client/
 
 imports/
   api/           # Define collections
-    contacts/       # The Stuffs collection definition
+    contacts/       # The Contacts collection definition
     notes/
   startup/       # Define code to run when system starts up (client-only, server-only, both)
     client/
@@ -122,9 +122,9 @@ This system adheres to the Meteor guideline of putting all application code in t
 
 ### Application functionality
 
-The application implements a simple CRUD application for managing "Stuff", which is a Mongo Collection consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
+The application implements a simple CRUD application for managing "Contact", which is a Mongo Collection consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
 
-By default, each user only sees the Stuff that they have created.  However, the settings file enables you to define default accounts.  If you define a user with the role "admin", then that user gets access to a special page which lists all the Stuff defined by all users.
+By default, each user only sees the Contact that they have created.  However, the settings file enables you to define default accounts.  If you define a user with the role "admin", then that user gets access to a special page which lists all the Contact defined by all users.
 
 #### Landing page
 
@@ -153,27 +153,27 @@ Alternatively, clicking on the Login link, then on the Sign Up menu item display
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-<img src="doc/non-admin%20landing.png">
+<img src="doc/non-admin-landing.png">
 
 
-You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
+You can now add new Contacts documents, and list the Contact you have created. Note you cannot see any Contact created by other users.
 
-#### Add Stuff page
+#### Add Contacts page
 
-After logging in, here is the page that allows you to add new Stuff:
+After logging in, here is the page that allows you to add new Contacts:
 
 <img src="doc/addcontacts.png">
 
-#### List Stuff page
+#### List Contacts page
 
-After logging in, here is the page that allows you to list all the Stuff you have created:
+After logging in, here is the page that allows you to list all the Contact you have created:
 
 <img src="doc/listcontacts.png">
 
 
-You click the "Edit" link to go to the Edit Stuff page, shown next.
+You click the "Edit" link to go to the Edit Contact page, shown next.
 
-#### Edit Stuff page
+#### Edit Contacts page
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
@@ -187,9 +187,9 @@ You can define an "admin" user in the settings.json file. This user, after loggi
 <img src="doc/adminlanding.png">
 
 
-#### Admin page (list all users stuff)
+#### Admin page (list all users contacts)
 
-To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
+To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contacts by all of the users:
 
 <img src="doc/listadmin.png">
 
@@ -198,11 +198,11 @@ Note that non-admin users cannot get to this page, even if they type in the URL 
 
 ### Collections
 
-The application implements a single Collection called "Stuffs". Each Stuffs document has the following fields: name, quantity, condition, and username.
+The application implements a single Collection called "Contacts". Each Contacts document has the following fields: name, quantity, condition, and username.
 
-The Stuffs collection is defined in [imports/api/stuff/stuff.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/api/stuff/stuff.js).
+The Contacts collection is defined in [imports/api/stuff/stuff.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/api/stuff/stuff.js).
 
-The Stuffs collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/startup/server/Mongo.js).
+The Contacts collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/startup/server/Mongo.js).
 
 ### CSS
 
@@ -242,7 +242,7 @@ The application allows users to register and create new accounts at any time.
 
 ### Authorization
 
-Only logged in users can manipulate Stuff documents (but any registered user can manipulate any Stuff document, even if they weren't the user that created it.)
+Only logged in users can manipulate Contact documents (but any registered user can manipulate any Contact document, even if they weren't the user that created it.)
 
 ### Configuration
 
