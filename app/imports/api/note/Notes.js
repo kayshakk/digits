@@ -7,13 +7,13 @@ import SimpleSchema from 'simpl-schema';
 class NotesCollection {
   constructor() {
     // The name of this collection.
-    this.name = 'ContactCollection';
+    this.name = 'NotesCollection';
     // Define the Mongo collection.
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
       note: String,
-      contactsId: String,
+      contactId: String,
       owner: String,
       createdAt: Date,
     });

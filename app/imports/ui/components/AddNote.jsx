@@ -1,31 +1,22 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, HiddenField, SubmitField, TextField } from 'uniforms-bootstrap5';
-import swal from 'sweetalert';
-import { Meteor } from 'meteor/meteor';
-import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import SimpleSchema from 'simpl-schema';
 import PropTypes from 'prop-types';
-import { Notes } from '../../api/note/Notes';
+import { Card, Col, Container, Row } from 'react-bootstrap';
+import { AutoForm, ErrorsField, SubmitField, HiddenField, TextField } from 'uniforms-bootstrap5';
+import swal from 'sweetalert';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { Notes } from '../../api/notes/Notes';
 
-// Create a schema to specify the structure of the data to appear in the form.
-const formSchema = new SimpleSchema({
-  note: PropTypes.string,
-  contactId: PropTypes.string,
-  owner: PropTypes.string,
-  createdAt: PropTypes.instanceOf(Date),
-});
+const schema = Notes.schema;
+const bridge = new SimpleSchema2Bridge(schema);
 
-const bridge = new SimpleSchema2Bridge(formSchema);
-
-/* Renders the AddStuff page for adding a document. */
-const AddNote = (owner, contactId ) => {
+/* Renders the AddContact page for adding a document. */
+const AddNote = ({ owner, contactId }) => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
     const { note, createdAt } = data;
     Notes.collection.insert(
-      { note, contactId, createdAt },
+      { note, owner, contactId, createdAt },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -43,7 +34,7 @@ const AddNote = (owner, contactId ) => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={10}>
-          <Col className="text-center"><h2>Add Note</h2></Col>
+          <Col className="text-center"><h2>Add a Note</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
@@ -61,6 +52,7 @@ const AddNote = (owner, contactId ) => {
     </Container>
   );
 };
+
 AddNote.propTypes = {
   owner: PropTypes.string.isRequired,
   contactId: PropTypes.string.isRequired,

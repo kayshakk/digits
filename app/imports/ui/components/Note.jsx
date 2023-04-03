@@ -14,10 +14,10 @@ const Note = ({ note }) => (
 Note.propTypes = {
   note: PropTypes.shape({
     note: PropTypes.string,
+    createdAt: PropTypes.string,
     contactId: PropTypes.string,
     owner: PropTypes.string,
-    createdAt: PropTypes.instanceOf(Date),
-    _id: PropTypes.string,
   }).isRequired,
 };
+
 export default Note;
