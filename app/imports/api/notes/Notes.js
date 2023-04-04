@@ -1,23 +1,18 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
-/**
- * The ContactCollection. It encapsulates state and variable values for stuff.
- */
-class ContactCollection {
+class NotesCollection {
   constructor() {
     // The name of this collection.
-    this.name = 'ContactCollection';
+    this.name = 'NotesCollection';
     // Define the Mongo collection.
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
-      firstName: String,
-      lastName: String,
-      address: String,
-      image: String,
-      description: String,
+      note: String,
+      contactId: String,
       owner: String,
+      createdAt: Date,
     });
     // Attach the schema to the collection, so all attempts to insert a document are checked against schema.
     this.collection.attachSchema(this.schema);
@@ -28,7 +23,7 @@ class ContactCollection {
 }
 
 /**
- * The singleton instance of the ContactCollection.
- * @type {ContactCollection}
+ * The singleton instance of the NotesCollection.
+ * @type {NotesCollection}
  */
-export const Contacts = new ContactCollection();
+export const Notes = new NotesCollection();

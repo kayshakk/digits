@@ -1,24 +1,15 @@
 import React from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { AutoForm, ErrorsField, LongTextField, SubmitField, TextField } from 'uniforms-bootstrap5';
+import { AutoForm, ErrorsField, SubmitField, LongTextField, TextField } from 'uniforms-bootstrap5';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import SimpleSchema from 'simpl-schema';
-import { Contacts } from '../../api/contacts/Contacts';
+import { Contacts } from '../../api/contacts/Contact';
 
-// Create a schema to specify the structure of the data to appear in the form.
-const formSchema = new SimpleSchema({
-  firstName: String,
-  lastName: String,
-  address: String,
-  image: String,
-  description: String,
-});
+const schema = Contacts.schema.omit('owner');
+const bridge = new SimpleSchema2Bridge(schema);
 
-const bridge = new SimpleSchema2Bridge(formSchema);
-
-/* Renders the AddStuff page for adding a document. */
+/* Renders the AddContact page for adding a document. */
 const AddContact = () => {
 
   // On submit, insert the data.
@@ -44,28 +35,25 @@ const AddContact = () => {
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={10}>
-          <Col className="text-center"><h2>Add Contact</h2></Col>
+          <Col className="text-center"><h2>Add Contacts</h2></Col>
           <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
                 <Row>
-                  <Col>
-                    <TextField name="firstName" />
-                  </Col>
-                  <Col>
-                    <TextField name="lastName" />
-                  </Col>
+                  <Col> <TextField name="firstName" placeholder="Scott" /> </Col>
+                  <Col> <TextField name="lastName" placeholder="Robertson" /> </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <TextField name="address" />
-                  </Col>
-                  <Col>
-                    <TextField name="image" />
-                  </Col>
+                  <Col> <TextField name="address" placeholder="1680 East-West Rd." /> </Col>
+                  <Col> <TextField name="image" placeholder="http://www2.hawaii.edu/~scottpr/images/RobertsonThumb.jpg" /> </Col>
                 </Row>
-                <LongTextField name="description" />
-                <SubmitField />
+                <LongTextField
+                  name="description"
+                  placeholder="I am Chair of the Information and Computer Sciences
+                Department at the University of Hawaii, Manoa, where I teach human-computer interaction, programming,
+                data structures, and cognitive science. I conduct research on how social media is used for civic engagement and issues related to e-democracy and social informatics."
+                />
+                <SubmitField value="submit" />
                 <ErrorsField />
               </Card.Body>
             </Card>

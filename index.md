@@ -1,25 +1,4 @@
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-page.png)
-
-meteor-application-template-react is a sample Meteor 2.9 application that illustrates: 
-
-  * A standard directory layout using 'imports/' as recommended in the [Meteor Guide](https://guide.meteor.com/structure.html)
-  * [Bootstrap 5 React](https://react-bootstrap.github.io/) for user interface.
-  * [Uniforms](https://uniforms.tools/) for form development.
-  * [alanning:roles](https://github.com/alanning/meteor-roles) to implement a special "Admin" user.
-  * Authorization, authentication, and registration using built-in Meteor packages.
-  * Initialization of users and data from a settings file.
-  * Alerts regarding success or failure of DB updates using [Sweet Alert](https://sweetalert.js.org/).
-  * Quality assurance using [ESLint](http://eslint.org) with packages to partially enforce the [Meteor Coding Standards](https://guide.meteor.com/code-style.html) and the [AirBnB Javascript Style Guide](https://github.com/airbnb/javascript).
-
-The goal of this template is to help you get quickly started doing Meteor development by providing a reasonable directory structure for development and deployment, a set of common extensions to the core framework, and boilerplate code to implement basic page display, navigation, forms, roles, and collection manipulation.
-
-To keep this codebase simple and small, some important capabilities are intentionally excluded from this template:
-
-  * Unit Testing.
-  * Security (meteor-application-template-react enables the insecure packages)
-  * Deployment
-
-Examples of the these capabilities will be provided elsewhere.
+<img src="doc/landing.png">
 
 ## Installation
 
@@ -93,11 +72,11 @@ The following sections describe the major features of this template.
 The top-level directory structure is:
 
 ```
-.github     # holds the GitHub Continuous Integration action and Issue template.
-app/        # holds the Meteor application sources
-config/     # holds configuration files, such as settings.development.json
-doc/        # holds developer documentation, user guides, etc.
-.gitignore  # don't commit IntelliJ project files, node_modules, and settings.production.json
+.github/        # holds the GitHub Continuous Integration action and Issue template.
+app/            # holds the Meteor application sources
+config/         # holds configuration files, such as settings.development.json
+doc/            # holds developer documentation, user guides, etc.
+    .gitignore  # don't commit IntelliJ project files, node_modules, and settings.
 ```
 
 This structure separates documentation files (such as screenshots) and configuration files (such as the settings files) from the actual Meteor application.
@@ -106,20 +85,39 @@ The app/ directory has this structure:
 
 ```
 .deploy/
-  .gitignore     # don't commit mup.js or settings.json
-  mup.sample.js  # sample mup.js file used for deploying the application
-  settings.sample.json # sample settings file
-  
+  .gitignore            # don't commit mup.js or settings.json
+  mup.sample.js         # sample mup.js file used for deploying the application
+  settings.sample.json  # sample settings file
+
+.meteor/
+    .finished-upgraders # Helps Meteor to properly upgrade the app
+    .gitignore          # don't commit mup.js or settings.json
+    .id                 # Contains a token unique to the project
+    packages            # Meteor packages
+    platforms           # Server and browser platforms
+    release             # Meteor release info
+    versions            # Versions for meteor applications
+    
 client/
   main.html      # The boilerplate HTML with a "root" div to be manipulated by React.
   main.js        # import startup files.
+  style.css      # styles the website
 
 imports/
   api/           # Define collections
-    stuff/       # The Stuffs collection definition
+    contacts/    # The Contacts collection definition
+      Contacts.js
+    notes/       # The Notes collection definition
+       Notes.js
+    
   startup/       # Define code to run when system starts up (client-only, server-only, both)
-    client/
-    server/
+    client/      # Startup for the Client side
+        Startup.jsx
+    server/      # Startup for the Server side
+        Accounts.js     # Creates accounts when server starts
+        Mongo.js        # Creates default accounts
+        Publications.js # Publishes the documents
+        
   ui/
     components/  # Contains page elements, some of which could appear on multiple pages.
     layouts/     # Contains top-level layout (<App> component).
@@ -133,6 +131,9 @@ server/
    main.js       # import the server-side js files.
    
 tests/           # testcafe acceptance tests.
+
+config/          # Creates default accounts and contacts
+
 ```
 
 ### Import conventions
@@ -149,7 +150,7 @@ By default, each user only sees the Stuff that they have created.  However, the 
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-page.png)
+<img src="doc/landing.png">
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -157,20 +158,20 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/signin-page.png)
+<img src="doc/login.png">
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/register-page.png)
+<img src="doc/register.png">
 
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/landing-after-login-page.png)
+<img src="doc/non-admin landing.png">
 
 You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
 
@@ -178,13 +179,13 @@ You can now add new Stuff documents, and list the Stuff you have created. Note y
 
 After logging in, here is the page that allows you to add new Stuff:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/add-stuff-page.png)
+![]<img src="doc/landingpage.png">
 
 #### List Stuff page
 
 After logging in, here is the page that allows you to list all the Stuff you have created:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/list-stuff-page.png)
+![]<img src="doc/landingpage.png">
 
 You click the "Edit" link to go to the Edit Stuff page, shown next.
 
@@ -192,19 +193,19 @@ You click the "Edit" link to go to the Edit Stuff page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/edit-stuff-page.png)
+![]<img src="doc/landingpage.png">
 
 #### Landing (after Login), Admin user
 
 You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/admin-landing-page.png)
+![]<img src="doc/landingpage.png">
 
 #### Admin page (list all users stuff)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
 
-![](https://github.com/ics-software-engineering/meteor-application-template-react/raw/main/doc/admin-list-stuff-page.png)
+![]<img src="doc/listadmin.png">
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
@@ -279,12 +280,3 @@ ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as IntelliJ).
 
-## Screencasts
-
-For more information about this system, please watch one or more of the following screencasts. Note that the current source code might differ slightly from the code in these screencasts, but the changes should be very minor.
-
-  * [Walkthrough of system user interface (6 min)](https://youtu.be/48xu1hrqUi8)
-  * [Data and accounts structure and initialization (18 min)](https://youtu.be/HZRjwrVBWp4)
-  * [Navigation, routing, pages, components (34 min)](https://youtu.be/XztTdHpv6Jw)
-  * [Forms (32 min)](https://youtu.be/8FyWR3gUGCM)
-  * [Authorization, authentication, and roles (12 min)](https://youtu.be/9HX5vuXTlvA)

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 
-/** Renders a single row in the List Stuff (Admin) table. See pages/ListStuffAdmin.jsx. */
 const ContactAdmin = ({ contact }) => (
   <Card className="h-100">
     <Card.Header> <img src={contact.image} alt="pfp" width="75" /></Card.Header>
