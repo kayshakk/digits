@@ -274,4 +274,3 @@ The application includes a [.eslintrc](https://github.com/ics-software-engineeri
 ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as IntelliJ).
-
