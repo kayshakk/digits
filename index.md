@@ -1,5 +1,10 @@
-
 <img src="doc/landing.png">
+
+Digits is an application that allows users to:
+
+- Register an account.
+- Create and manage a set of contacts.
+- Add a set of timestamped notes regarding their interactions with each contact.
 
 ## Installation
 
@@ -73,11 +78,11 @@ The following sections describe the major features of this template.
 The top-level directory structure is:
 
 ```
-.github     # holds the GitHub Continuous Integration action and Issue template.
-app/        # holds the Meteor application sources
-config/     # holds configuration files, such as settings.development.json
-doc/        # holds developer documentation, user guides, etc.
-.gitignore  # don't commit IntelliJ project files, node_modules, and settings.production.json
+.github/        # holds the GitHub Continuous Integration action and Issue template.
+app/            # holds the Meteor application sources
+config/         # holds configuration files, such as settings.development.json
+doc/            # holds developer documentation, user guides, etc.
+    .gitignore  # don't commit IntelliJ project files, node_modules, and settings.
 ```
 
 This structure separates documentation files (such as screenshots) and configuration files (such as the settings files) from the actual Meteor application.
@@ -86,21 +91,39 @@ The app/ directory has this structure:
 
 ```
 .deploy/
-  .gitignore     # don't commit mup.js or settings.json
-  mup.sample.js  # sample mup.js file used for deploying the application
-  settings.sample.json # sample settings file
-  
+  .gitignore            # don't commit mup.js or settings.json
+  mup.sample.js         # sample mup.js file used for deploying the application
+  settings.sample.json  # sample settings file
+
+.meteor/
+    .finished-upgraders # Helps Meteor to properly upgrade the app
+    .gitignore          # don't commit mup.js or settings.json
+    .id                 # Contains a token unique to the project
+    packages            # Meteor packages
+    platforms           # Server and browser platforms
+    release             # Meteor release info
+    versions            # Versions for meteor applications
+    
 client/
   main.html      # The boilerplate HTML with a "root" div to be manipulated by React.
   main.js        # import startup files.
+  style.css      # styles the website
 
 imports/
   api/           # Define collections
-    contacts/       # The Contacts collection definition
-    notes/
+    contacts/    # The Contacts collection definition
+      Contacts.js
+    notes/       # The Notes collection definition
+       Notes.js
+    
   startup/       # Define code to run when system starts up (client-only, server-only, both)
-    client/
-    server/
+    client/      # Startup for the Client side
+        Startup.jsx
+    server/      # Startup for the Server side
+        Accounts.js     # Creates accounts when server starts
+        Mongo.js        # Creates default accounts
+        Publications.js # Publishes the documents
+        
   ui/
     components/  # Contains page elements, some of which could appear on multiple pages.
     layouts/     # Contains top-level layout (<App> component).
@@ -114,6 +137,9 @@ server/
    main.js       # import the server-side js files.
    
 tests/           # testcafe acceptance tests.
+
+config/          # Creates default accounts and contacts
+
 ```
 
 ### Import conventions
@@ -121,10 +147,7 @@ tests/           # testcafe acceptance tests.
 This system adheres to the Meteor guideline of putting all application code in the imports/ directory, and using client/main.js and server/main.js to import the code appropriate for the client and server in an appropriate order.
 
 ### Application functionality
-
-The application implements a simple CRUD application for managing "Contact", which is a Mongo Collection consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
-
-By default, each user only sees the Contact that they have created.  However, the settings file enables you to define default accounts.  If you define a user with the role "admin", then that user gets access to a special page which lists all the Contact defined by all users.
+By default, each user only sees the Contacts that they have created.  However, the settings file enables you to define default accounts.  If you define a user with the role "admin", then that user gets access to a special page which lists all the Contacts defined by all users.
 
 #### Landing page
 
@@ -140,7 +163,6 @@ Clicking on the Login link, then on the Sign In menu item displays this page:
 
 <img src="doc/login.png">
 
-
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
@@ -148,15 +170,13 @@ Alternatively, clicking on the Login link, then on the Sign Up menu item display
 <img src="doc/register.png">
 
 
-
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-<img src="doc/non-admin-landing.png">
+<img src="doc/non-admin landing.png">
 
-
-You can now add new Contacts documents, and list the Contact you have created. Note you cannot see any Contact created by other users.
+You can now add new Contacts documents, and list the Contacts you have created. Note you cannot see any Contacts created by other users.
 
 #### Add Contacts page
 
@@ -166,19 +186,17 @@ After logging in, here is the page that allows you to add new Contacts:
 
 #### List Contacts page
 
-After logging in, here is the page that allows you to list all the Contact you have created:
+After logging in, here is the page that allows you to list all the Contacts you have created:
 
 <img src="doc/listcontacts.png">
 
-
 You click the "Edit" link to go to the Edit Contact page, shown next.
 
-#### Edit Contacts page
+#### Edit Contact page
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
 <img src="doc/editcontact.png">
-
 
 #### Landing (after Login), Admin user
 
@@ -186,23 +204,13 @@ You can define an "admin" user in the settings.json file. This user, after loggi
 
 <img src="doc/adminlanding.png">
 
-
 #### Admin page (list all users contacts)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contacts by all of the users:
 
 <img src="doc/listadmin.png">
 
-
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
-
-### Collections
-
-The application implements a single Collection called "Contacts". Each Contacts document has the following fields: name, quantity, condition, and username.
-
-The Contacts collection is defined in [imports/api/stuff/stuff.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/api/stuff/stuff.js).
-
-The Contacts collection is initialized in [imports/startup/server/Mongo.js](https://github.com/ics-software-engineering/meteor-application-template-react/blob/main/app/imports/startup/server/Mongo.js).
 
 ### CSS
 
@@ -266,13 +274,3 @@ The application includes a [.eslintrc](https://github.com/ics-software-engineeri
 ESLint should run without generating any errors.
 
 It's significantly easier to do development with ESLint integrated directly into your IDE (such as IntelliJ).
-
-## Screencasts
-
-For more information about this system, please watch one or more of the following screencasts. Note that the current source code might differ slightly from the code in these screencasts, but the changes should be very minor.
-
-  * [Walkthrough of system user interface (6 min)](https://youtu.be/48xu1hrqUi8)
-  * [Data and accounts structure and initialization (18 min)](https://youtu.be/HZRjwrVBWp4)
-  * [Navigation, routing, pages, components (34 min)](https://youtu.be/XztTdHpv6Jw)
-  * [Forms (32 min)](https://youtu.be/8FyWR3gUGCM)
-  * [Authorization, authentication, and roles (12 min)](https://youtu.be/9HX5vuXTlvA)
